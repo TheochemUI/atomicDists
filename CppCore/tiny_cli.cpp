@@ -9,9 +9,10 @@
 // #endif
 
 
+using namespace atmdist::types;
 
 int main(int argc, char *argv[]) {
-  atmdist::types::SimpleMatrix<int> mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  SimpleMatrix<int> mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
   fmt::print("Cols: {}\n", mat.cols());
   fmt::print("Rows: {}\n", mat.rows());
   fmt::print("Matrix:\n{}\n", fmt::streamed(mat));
