@@ -1,5 +1,6 @@
 #include "../include/DistOps.hpp"
 #include "../include/EuclideanDistance.hpp"
+#include "../include/ManhattanDistance.hpp"
 #include "../include/SimpleMatrix.hpp"
 #include <gtest/gtest.h>
 using namespace atmdist::types;
@@ -35,4 +36,31 @@ TEST(RowwiseEuclideanDistances, MultipleRows) {
   EXPECT_DOUBLE_EQ(result(1, 2), 3 * std::sqrt(3.0));
 }
 
-// Additional tests for edge cases, invalid inputs, etc.
+TEST(RowwiseManhattanDistances, EmptyMatrix) {
+  SimpleMatrix<double> mat(0, 0);
+  auto result = rowwise_distances(mat, ManhattanDistance<double>());
+  EXPECT_EQ(result.rows(), 0);
+  EXPECT_EQ(result.cols(), 0);
+}
+
+TEST(RowwiseManhattanDistances, SingleRow) {
+  SimpleMatrix<double> mat(1, 3, {{1.0, 2.0, 3.0}});
+  auto result = rowwise_distances(mat, ManhattanDistance<double>());
+  EXPECT_EQ(result.rows(), 1);
+  EXPECT_EQ(result.cols(), 1);
+  EXPECT_DOUBLE_EQ(result(0, 0), 0.0);
+}
+
+TEST(RowwiseManhattanDistances, MultipleRows) {
+  SimpleMatrix<double> mat({{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}, {7.0, 8.0, 9.0}});
+  auto result = rowwise_distances(mat, ManhattanDistance<double>());
+  EXPECT_EQ(result.rows(), 3);
+  EXPECT_EQ(result.cols(), 3);
+
+  // Expected distances:
+  // |1-4| + |2-5| + |3-6| = 3 + 3 + 3 = 9
+  // |1-7| + |2-8| + |3-9| = 6 + 6 + 6 = 18
+  EXPECT_DOUBLE_EQ(result(0, 1), 9.0);
+  EXPECT_DOUBLE_EQ(result(0, 2), 18.0);
+  EXPECT_DOUBLE_EQ(result(1, 2), 9.0);
+}
