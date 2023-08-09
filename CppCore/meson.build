@@ -1,6 +1,6 @@
 # Source files
 _srcs = [
-  'SimpleMatrix.cc',
+  'AtomicMeasures.cc',
 ]
 
 _incdirs += include_directories(['include'])
@@ -8,12 +8,12 @@ _incdirs += include_directories(['include'])
 # Create library
 atmdistlib = library('atmdist',
                  _srcs,
-                 dependencies: _deps,
+                 dependencies: _deps + readcon_dep,
                  cpp_args: _args,
                  link_with: _linkto,
                  include_directories: _incdirs,
                  install: true)
-_linkto += atmdistlib
+_linkto += [atmdistlib]
 
 # --------------------- Executable
 
