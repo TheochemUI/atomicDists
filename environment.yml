@@ -3,7 +3,7 @@
 #   $ micromamba create -f environment.yml  # `micromamba` works too for this command
 #   $ micromamba activate readcon_dev
 #
-name: readcon_dev
+name: atmdist_dev
 channels:
   - conda-forge
 dependencies:
@@ -18,5 +18,3 @@ dependencies:
   # Tests
   - gtest
   - gmock
-  # Optional
-  - arrow-cpp
