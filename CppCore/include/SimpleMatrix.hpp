@@ -2,16 +2,19 @@
 
 #include <cstddef>
 #include <iostream>
+#include <range/v3/algorithm/copy.hpp>
 #include <range/v3/view/iota.hpp>
 #include <range/v3/view/transform.hpp>
-#include <range/v3/algorithm/copy.hpp>
 #include <vector>
 
 namespace atmdist::types {
 template <typename T> class SimpleMatrix;
-template <typename T> SimpleMatrix<T> concatenate_horizontal(const SimpleMatrix<T>& mat1, const SimpleMatrix<T>& mat2);
-template <typename T> SimpleMatrix<T> concatenate_vertical(const SimpleMatrix<T>& mat1, const SimpleMatrix<T>& mat2);
-
+template <typename T>
+SimpleMatrix<T> concatenate_horizontal(const SimpleMatrix<T> &mat1,
+                                       const SimpleMatrix<T> &mat2);
+template <typename T>
+SimpleMatrix<T> concatenate_vertical(const SimpleMatrix<T> &mat1,
+                                     const SimpleMatrix<T> &mat2);
 
 template <typename T> class SimpleMatrix {
 public:
@@ -21,6 +24,20 @@ public:
       : data(rows, std::vector<T>(cols, value)) {}
   SimpleMatrix(std::initializer_list<std::initializer_list<T>> values)
       : data(values.begin(), values.end()) {}
+  SimpleMatrix(size_t rows, size_t cols,
+               std::initializer_list<std::initializer_list<T>> values) {
+    if (values.size() != rows ||
+        (values.size() > 0 && values.begin()->size() != cols)) {
+      throw std::invalid_argument(
+          "Size mismatch between parameters and initializer list");
+    }
+
+    data.resize(rows);
+    auto it = values.begin();
+    for (size_t i = 0; i < rows; ++i, ++it) {
+      data[i] = std::vector<T>(it->begin(), it->end());
+    }
+  }
 
   T &operator()(size_t row, size_t col) { return data[row][col]; }
   const T &operator()(size_t row, size_t col) const { return data[row][col]; }
@@ -51,17 +68,14 @@ public:
                [this, col](size_t row) -> const T & { return data[row][col]; });
   }
 
-  friend SimpleMatrix
-  concatenate_horizontal<>(const SimpleMatrix &mat1,
-                                                   const SimpleMatrix &mat2);
-  friend SimpleMatrix
-  concatenate_vertical<>(const SimpleMatrix &mat1,
-                                                 const SimpleMatrix &mat2);
+  friend SimpleMatrix concatenate_horizontal<>(const SimpleMatrix &mat1,
+                                               const SimpleMatrix &mat2);
+  friend SimpleMatrix concatenate_vertical<>(const SimpleMatrix &mat1,
+                                             const SimpleMatrix &mat2);
 
 private:
   std::vector<std::vector<T>> data;
 };
-
 
 template <typename T>
 SimpleMatrix<T> concatenate_horizontal(const SimpleMatrix<T> &mat1,

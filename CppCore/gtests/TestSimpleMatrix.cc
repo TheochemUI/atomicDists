@@ -27,17 +27,27 @@ TEST(SimpleMatrixTest, ValueConstructor) {
     }
 }
 
+
 TEST(SimpleMatrixTest, InitializerListConstructor) {
-    SimpleMatrix<int> mat{{1, 2}, {3, 4}, {5, 6}};
-    EXPECT_EQ(mat.rows(), 3);
-    EXPECT_EQ(mat.cols(), 2);
-    EXPECT_EQ(mat(0, 0), 1);
-    EXPECT_EQ(mat(0, 1), 2);
-    EXPECT_EQ(mat(1, 0), 3);
-    EXPECT_EQ(mat(1, 1), 4);
-    EXPECT_EQ(mat(2, 0), 5);
-    EXPECT_EQ(mat(2, 1), 6);
+  SimpleMatrix<double> mat({
+    {1.0, 2.0, 3.0},
+    {4.0, 5.0, 6.0},
+    {7.0, 8.0, 9.0}
+  });
+
+  ASSERT_EQ(mat.rows(), 3);
+  ASSERT_EQ(mat.cols(), 3);
+  ASSERT_EQ(mat(0, 0), 1.0);
+  ASSERT_EQ(mat(0, 1), 2.0);
+  ASSERT_EQ(mat(0, 2), 3.0);
+  ASSERT_EQ(mat(1, 0), 4.0);
+  ASSERT_EQ(mat(1, 1), 5.0);
+  ASSERT_EQ(mat(1, 2), 6.0);
+  ASSERT_EQ(mat(2, 0), 7.0);
+  ASSERT_EQ(mat(2, 1), 8.0);
+  ASSERT_EQ(mat(2, 2), 9.0);
 }
+
 
 TEST(SimpleMatrixTest, OstreamOperator) {
     SimpleMatrix<int> mat{{1, 2}, {3, 4}};
