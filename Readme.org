@@ -4,6 +4,8 @@ configurations [fn:whyatomic]. The intended use-case is for generating
 covariance matrices, with an associated library. Typically this is used in
 conjunction with ~readCon~, but primary downstream users would use the bindings.
 ** Features
+- Euclidean distances
+- Generic ~SimpleMatrix~
 ** Development
 *** Developing locally
 A ~pre-commit~ job is setup on CI to enforce consistent styles, so it is best to
