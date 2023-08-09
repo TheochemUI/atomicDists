@@ -69,5 +69,33 @@ endif
 
 # --------------------- Library
 
-subdir('CppCore') # defines readconlib
+subdir('CppCore') # defines atmdistlib
 _linkto += atmdistlib
+
+# ------------------------ Tests
+
+if get_option('with_tests') and not is_windows
+  gmock_dep = dependency('gmock', required: false)
+  gtest_dep = dependency('gtest', main: true,)
+  if not gtest_dep.found()
+    gtest_dep = dependency('gtest', main: true,
+                           subproject: subproject('gtest'))
+  endif
+  _deps += [ gtest_dep, gmock_dep ]
+  _args += ['-DWITH_TEST']
+test_array = [#
+  ['SimpleMatrix', 'testSimpleMatrix', 'TestSimpleMatrix.cc', ''],
+             ]
+foreach test : test_array
+  test(test.get(0),
+       executable(test.get(1),
+          sources : ['CppCore/gtests/'+test.get(2)],
+          dependencies : _deps,
+          link_with : _linkto,
+          cpp_args : _args,
+          include_directories: _incdirs,
+                 ),
+        workdir : meson.source_root() + test.get(3)
+      )
+endforeach
+endif
