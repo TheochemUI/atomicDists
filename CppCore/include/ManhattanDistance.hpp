@@ -6,7 +6,7 @@ namespace atmdist::distance {
 template <typename T>
 class ManhattanDistance : public Distance<T> {
 public:
-  T calculate(const std::vector<T> &vec1,
+  T operator()(const std::vector<T> &vec1,
               const std::vector<T> &vec2) const override {
     if (vec1.size() != vec2.size()) {
       throw std::invalid_argument(
