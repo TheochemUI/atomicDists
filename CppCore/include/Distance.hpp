@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <stdexcept>
 namespace atmdist::distance {
 
 template <typename T> class Distance {

@@ -1,8 +1,6 @@
+#pragma once
 #include "Distance.hpp"
 #include <cmath>
-
-#include <range/v3/algorithm/transform.hpp>
-#include <range/v3/numeric/accumulate.hpp>
 
 namespace atmdist::distance {
 
