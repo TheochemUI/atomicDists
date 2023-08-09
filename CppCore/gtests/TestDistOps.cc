@@ -1,6 +1,7 @@
 #include "../include/DistOps.hpp"
 #include "../include/EuclideanDistance.hpp"
 #include "../include/ManhattanDistance.hpp"
+#include "../include/LpDistance.hpp"
 #include "../include/SimpleMatrix.hpp"
 #include <gtest/gtest.h>
 using namespace atmdist::types;
@@ -63,4 +64,18 @@ TEST(RowwiseManhattanDistances, MultipleRows) {
   EXPECT_DOUBLE_EQ(result(0, 1), 9.0);
   EXPECT_DOUBLE_EQ(result(0, 2), 18.0);
   EXPECT_DOUBLE_EQ(result(1, 2), 9.0);
+}
+
+TEST(RowwiseLpDistances, L1NormEquivalentToManhattan) {
+  SimpleMatrix<double> mat({{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}});
+  auto resultL1 = rowwise_distances(mat, LpDistance<double>(1.0));
+  auto resultManhattan = rowwise_distances(mat, ManhattanDistance<double>());
+  EXPECT_DOUBLE_EQ(resultL1(0, 1), resultManhattan(0, 1));
+}
+
+TEST(RowwiseLpDistances, L2NormEquivalentToEuclidean) {
+  SimpleMatrix<double> mat({{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}});
+  auto resultL1 = rowwise_distances(mat, LpDistance<double>(2.0));
+  auto resultManhattan = rowwise_distances(mat, EuclideanDistance<double>());
+  EXPECT_DOUBLE_EQ(resultL1(0, 1), resultManhattan(0, 1));
 }

@@ -87,6 +87,7 @@ test_array = [#
   ['SimpleMatrix', 'testSimpleMatrix', 'TestSimpleMatrix.cc', ''],
   ['EuclideanDistance', 'testEuclideanDistance', 'TestEuclideanDistance.cc', ''],
   ['ManhattanDistance', 'testManhattanDistance', 'TestManhattanDistance.cc', ''],
+  ['LpDistance', 'testLpDistance', 'TestLpDistance.cc', ''],
   ['DistOps', 'testDistOps', 'TestDistOps.cc', ''],
              ]
 foreach test : test_array
