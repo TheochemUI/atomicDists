@@ -66,9 +66,10 @@ if get_option('with_fmt')
   _args += ['-DWITH_FMT']
 endif
 
+readcon_dep = subproject('readcon').get_variable('readcon_dep')
+_deps += [readcon_dep]
 
 # --------------------- Library
-
 subdir('CppCore') # defines atmdistlib
 _linkto += atmdistlib
 
