@@ -1,0 +1,22 @@
+* About
+This repository contains code for constructing distances between atomic
+configurations [fn:whyatomic]. The intended use-case is for generating
+covariance matrices, with an associated library. Typically this is used in
+conjunction with ~readCon~, but primary downstream users would use the bindings.
+** Features
+** Development
+*** Developing locally
+A ~pre-commit~ job is setup on CI to enforce consistent styles, so it is best to
+set it up locally as well (using [[https://pypa.github.io/pipx][pipx]] for isolation):
+
+#+begin_src sh
+# Run before commiting
+pipx run pre-commit run --all-files
+# Or install the git hook to enforce this
+pipx run pre-commit install
+#+end_src
+
+* License
+MIT.
+
+[fn:whyatomic] Some of the distances are generic, and can be suitable for any N-dimensional system
