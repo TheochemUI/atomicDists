@@ -86,6 +86,7 @@ if get_option('with_tests') and not is_windows
 test_array = [#
   ['SimpleMatrix', 'testSimpleMatrix', 'TestSimpleMatrix.cc', ''],
   ['EuclideanDistance', 'testEuclideanDistance', 'TestEuclideanDistance.cc', ''],
+  ['ManhattanDistance', 'testManhattanDistance', 'TestManhattanDistance.cc', ''],
   ['DistOps', 'testDistOps', 'TestDistOps.cc', ''],
              ]
 foreach test : test_array
