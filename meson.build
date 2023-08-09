@@ -85,6 +85,7 @@ if get_option('with_tests') and not is_windows
   _args += ['-DWITH_TEST']
 test_array = [#
   ['SimpleMatrix', 'testSimpleMatrix', 'TestSimpleMatrix.cc', ''],
+  ['EuclideanDistance', 'testEuclideanDistance', 'TestEuclideanDistance.cc', ''],
              ]
 foreach test : test_array
   test(test.get(0),
