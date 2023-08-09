@@ -1,19 +1,21 @@
 #include "../include/DistOps.hpp"
+#include "../include/EuclideanDistance.hpp"
 #include "../include/SimpleMatrix.hpp"
 #include <gtest/gtest.h>
 using namespace atmdist::types;
 using namespace atmdist;
+using namespace atmdist::distance;
 
 TEST(RowwiseEuclideanDistances, EmptyMatrix) {
   SimpleMatrix<double> mat(0, 0);
-  auto result = rowwise_euclidean_distances(mat);
+  auto result = rowwise_distances(mat, EuclideanDistance<double>());
   EXPECT_EQ(result.rows(), 0);
   EXPECT_EQ(result.cols(), 0);
 }
 
 TEST(RowwiseEuclideanDistances, SingleRow) {
   SimpleMatrix<double> mat(1, 3, {{1.0, 2.0, 3.0}});
-  auto result = rowwise_euclidean_distances(mat);
+  auto result = rowwise_distances(mat, EuclideanDistance<double>());
   EXPECT_EQ(result.rows(), 1);
   EXPECT_EQ(result.cols(), 1);
   EXPECT_DOUBLE_EQ(result(0, 0), 0.0);
@@ -21,7 +23,7 @@ TEST(RowwiseEuclideanDistances, SingleRow) {
 
 TEST(RowwiseEuclideanDistances, MultipleRows) {
   SimpleMatrix<double> mat({{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}, {7.0, 8.0, 9.0}});
-  auto result = rowwise_euclidean_distances(mat);
+  auto result = rowwise_distances(mat, EuclideanDistance<double>());
   EXPECT_EQ(result.rows(), 3);
   EXPECT_EQ(result.cols(), 3);
 
