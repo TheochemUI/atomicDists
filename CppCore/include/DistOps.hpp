@@ -4,11 +4,11 @@
 namespace atmdist {
 
 namespace types {
-    // Forward declaration
+// Forward declaration
 template <typename T> class SimpleMatrix;
-}
+} // namespace types
 namespace traits {
-    // For generically working with different matrix types
+// For generically working with different matrix types
 
 template <typename MatrixType> struct matrices;
 
@@ -23,8 +23,10 @@ template <typename T> struct matrices<arma::Mat<T>> {
 #endif
 
 #ifdef USE_EIGEN
-template <typename T> struct matrices<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> {
-  using value_type = typename Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>::Scalar;
+template <typename T>
+struct matrices<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> {
+  using value_type =
+      typename Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>::Scalar;
 };
 #endif
 } // namespace traits
