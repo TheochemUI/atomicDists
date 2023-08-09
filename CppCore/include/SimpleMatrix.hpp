@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <iostream>
 
 namespace atmdist::types {
 
@@ -15,6 +16,16 @@ public:
 
     size_t rows() const { return data.size(); }
     size_t cols() const { return data.empty() ? 0 : data[0].size(); }
+
+    friend std::ostream& operator<<(std::ostream& os, const SimpleMatrix<T>& mat) {
+        for (const auto& row : mat.data) {
+            for (const auto& val : row) {
+                os << val << ' ';
+            }
+            os << '\n';
+        }
+        return os;
+    }
 
 private:
     std::vector<std::vector<T>> data;
