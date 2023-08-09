@@ -38,6 +38,10 @@ public:
         return ranges::views::iota(size_t(0), data.size())
              | ranges::views::transform([this, col](size_t row) { return std::ref(data[row][col]); });
     }
+    auto column(size_t col) const {
+        return ranges::views::iota(size_t(0), data.size())
+             | ranges::views::transform([this, col](size_t row) -> const T& { return data[row][col]; });
+    }
 
 private:
     std::vector<std::vector<T>> data;
